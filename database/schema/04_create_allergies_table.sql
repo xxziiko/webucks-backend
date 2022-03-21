@@ -1,0 +1,6 @@
+CREATE TABLE allergies (
+    id INT AUTO_INCREMENT, 
+    name VARCHAR(200) NOT NULL UNIQUE,
+    create_at DATETIME DEFAULT NOW(),
+    PRIMARY KEY (id)
+);
