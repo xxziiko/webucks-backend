@@ -1,7 +1,6 @@
 const userDao = require("../models/userDao");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { is } = require("express/lib/request");
 
 const throwError = (massege, statusCode) => {
   const error = new Error(massege);
@@ -83,4 +82,8 @@ const updateId = async (email, password) => {
   const updateUser = await userDao.updateId(email, encryptedPw);
   return updateUser;
 };
-module.exports = { signUp, login, deleteId, updateId };
+
+const getUser = async () => {
+  return await userDao.getUser();
+};
+module.exports = { signUp, login, deleteId, updateId, getUser };

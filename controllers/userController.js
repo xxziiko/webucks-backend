@@ -20,6 +20,7 @@ const signUp = async (req, res, next) => {
 
     return res.status(201).json({ Messge: "SIGNUP_SUCCESS", user: user });
   } catch (err) {
+    console.log(err);
     return res.status(err.statusCode || 500).json({ Message: err.message });
   }
 };
@@ -58,9 +59,19 @@ const updateId = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const updateUser = await userService.updateId(email, password);
-    return res.status(201).json({ Message: "UPDATE" });
+    return res.status(201).json({ Message: "UPDATE", updateUser });
   } catch (err) {
     return res.status(err.statusCode || 500).json({ Message: err.message });
   }
 };
-module.exports = { signUp, login, deleteId, updateId };
+
+const getUser = async (req, res, text) => {
+  try {
+    const getId = await userService.getUser();
+    return res.status(200).json({ Message: " SUCCESS !", ID: getId });
+    return;
+  } catch (err) {
+    return res.status(500).json({ Message: err.message });
+  }
+};
+module.exports = { signUp, login, deleteId, updateId, getUser };
