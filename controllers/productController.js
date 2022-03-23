@@ -2,10 +2,9 @@ const productService = require("../services/productService");
 
 const categories = async (req, res, next) => {
   try {
-    console.log("productcontroller!!");
+    const id = req.params.id;
 
-    const catergory = await productService.categories();
-    console.log("after getting productService!!");
+    const catergory = await productService.categories(id);
 
     return res.status(200).json({ catergory });
   } catch (err) {
@@ -24,7 +23,8 @@ const products = async (req, res, text) => {
 
 const details = async (req, res, text) => {
   try {
-    const detail = await productService.details();
+    const id = req.params.id;
+    const detail = await productService.details(id);
     return res.status(200).json({ detail });
   } catch (err) {
     return res.status(500).json({ Message: err.message });

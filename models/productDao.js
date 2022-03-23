@@ -2,10 +2,10 @@ const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
-const categories = async () => {
+const categories = async (id) => {
   try {
     return await prisma.$queryRaw`
-    SELECT id, name FROM categories;`;
+    SELECT id, name FROM categories WHERE id = ${id};`;
   } catch (err) {
     throw err;
   }
@@ -28,7 +28,7 @@ const products = async () => {
   }
 };
 
-const details = async () => {
+const details = async (id) => {
   try {
     return await prisma.$queryRaw`
       SELECT p.id,
@@ -38,11 +38,12 @@ const details = async () => {
       --- product_images.image_url AS imageURL,
       JSON_ARRAYAGG(allergies.name) AS allergy,
       nutritions.caffein, nutritions.fat, nutritions.sugar, nutritions.sodium
-      FROM products p
+      FROM products p 
       LEFT JOIN products_allergies ON p.id = products_allergies.product_id
       LEFT JOIN allergies ON allergies.id = products_allergies.allergy_id
       JOIN product_images ON p.id = product_images.product_id
       JOIN nutritions ON p.id = nutritions.product_id
+      WHERE p.id = ${id}
       GROUP BY p.id;`;
   } catch (err) {
     throw err;

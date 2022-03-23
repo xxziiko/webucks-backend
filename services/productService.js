@@ -1,8 +1,8 @@
 const productDao = require("../models/productDao");
 
-const categories = async () => {
+const categories = async (id) => {
   try {
-    return await productDao.categories();
+    return await productDao.categories(id);
   } catch (err) {
     throw err;
   }
@@ -16,9 +16,9 @@ const products = async () => {
   }
 };
 
-const details = async () => {
+const details = async (id) => {
   try {
-    return await productDao.details();
+    return await productDao.details(id);
   } catch (err) {
     throw err;
   }

@@ -1,5 +1,4 @@
 const { PrismaClient } = require("@prisma/client");
-const { route } = require("../routes");
 
 const prisma = new PrismaClient();
 
@@ -23,8 +22,8 @@ const updateId = async (email, password) => {
   UPDATE users SET password = ${password} WHERE users.email = ${email};`;
 };
 
-const getUser = async () => {
+const getUser = async (id) => {
   return await prisma.$queryRaw`
-  SELECT * FROM users;`;
+  SELECT * FROM users WHERE id = ${id};`;
 };
 module.exports = { getUserByEmail, createUser, deleteId, updateId, getUser };
